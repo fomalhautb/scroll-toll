@@ -30,24 +30,12 @@ export function Footer(props: {
             Built by{" "}
             <a
               href={props.builtByLink}
-              target="_blank"
-              rel="noreferrer"
               className="font-medium underline underline-offset-4"
               data-oid="ox3um.f"
             >
               {props.builtBy}
             </a>
-            . The source code is available on{" "}
-            <a
-              href={props.githubLink}
-              target="_blank"
-              rel="noreferrer"
-              className="font-medium underline underline-offset-4"
-              data-oid="oxb1x-n"
-            >
-              GitHub
-            </a>
-            .
+            . © {new Date().getFullYear()} Scroll Toll. All rights reserved.
           </p>
         </div>
 
@@ -63,6 +51,8 @@ export function Footer(props: {
               href={link.href}
               className={buttonVariants({ variant: "ghost", size: "icon" })}
               key={index}
+              target="_blank"
+              rel="noreferrer"
               data-oid="s3xx:1k"
             >
               <link.icon className="h-6 w-6" data-oid="1e7z1p8" />

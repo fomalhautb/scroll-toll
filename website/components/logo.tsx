@@ -9,7 +9,7 @@ export function Logo(props: { className?: string; link?: string }) {
       data-oid="tt_wm8y"
     >
       <span className="font-bold sm:inline-block" data-oid="uwiao9d">
-        Stack Template
+        Scroll Toll
       </span>
     </Link>
   );

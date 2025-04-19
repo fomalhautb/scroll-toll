@@ -3,31 +3,27 @@ import { LandingPageHeader } from "@/components/landing-page-header";
 
 export default function Layout(props: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col" data-oid="elhh6sj">
+    <div className="flex min-h-screen flex-col" data-oid="-pies5x">
       <LandingPageHeader
         items={[
           { title: "Home", href: "/" },
           { title: "Features", href: "/#features" },
+          { title: "How It Works", href: "/#how-it-works" },
           { title: "Pricing", href: "/#pricing" },
-          {
-            title: "Github",
-            href: "https://github.com/stack-auth/stack-template",
-            external: true,
-          },
         ]}
-        data-oid="nmi1gpr"
+        data-oid="r_cdwmb"
       />
 
-      <main className="flex-1" data-oid="d2z_gyf">
+      <main className="flex-1" data-oid="cy0s6gz">
         {props.children}
       </main>
       <Footer
-        builtBy="Stack Auth"
-        builtByLink="https://stack-auth.com/"
-        githubLink="https://github.com/stack-auth/stack-template"
-        twitterLink="https://twitter.com/stack_auth"
-        linkedinLink="linkedin.com/company/stack-auth"
-        data-oid="_bg47ku"
+        builtBy="Scroll Toll Team"
+        builtByLink="/"
+        githubLink="https://github.com/scroll-toll"
+        twitterLink="https://twitter.com/scrolltoll"
+        linkedinLink="https://linkedin.com/company/scroll-toll"
+        data-oid="908goql"
       />
     </div>
   );

@@ -92,6 +92,7 @@ export default function DashboardPage() {
                     d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
                     data-oid="s6i6rag"
                   />
+
                   <circle cx="9" cy="7" r="4" data-oid="92ik_.s" />
                   <path
                     d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"
@@ -135,6 +136,7 @@ export default function DashboardPage() {
                     rx="2"
                     data-oid="zr5yxh9"
                   />
+
                   <path d="M2 10h20" data-oid="bjv4lym" />
                 </svg>
               </CardHeader>

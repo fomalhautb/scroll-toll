@@ -21,8 +21,7 @@ export function Hero(props: {
       >
         <Link
           href={props.capsuleLink}
-          className="rounded-2xl bg-muted px-4 py-1.5 text-sm font-medium"
-          target="_blank"
+          className="rounded-2xl bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground"
           data-oid="m559iku"
         >
           {props.capsuleText}
@@ -43,6 +42,8 @@ export function Hero(props: {
           <Link
             href={props.primaryCtaLink}
             className={cn(buttonVariants({ size: "lg" }))}
+            target="_blank"
+            rel="noreferrer"
             data-oid=":5m-.th"
           >
             {props.primaryCtaText}
@@ -50,8 +51,6 @@ export function Hero(props: {
 
           <Link
             href={props.secondaryCtaLink}
-            target="_blank"
-            rel="noreferrer"
             className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
             data-oid=".swq_yb"
           >
