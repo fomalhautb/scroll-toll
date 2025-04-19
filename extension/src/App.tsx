@@ -1,5 +1,37 @@
 import { useEffect, useState } from 'react'
 
+
+
+// Function to fetch the current cost from the API
+const fetchCurrentCost = async (sessionToken: string): Promise<number | null> => {
+  try {
+    // Only proceed if we have a session token
+    if (!sessionToken) {
+      console.error('No session token available');
+      return null;
+    }
+
+    const response = await fetch('http://localhost:3000/api/get-cost', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionToken}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.cost;
+  } catch (error) {
+    console.error('Error fetching current cost:', error);
+    return null;
+  }
+};
+
+
 function App() {
   const [currentUrl, setCurrentUrl] = useState<string>('')
   const [sessionToken, setSessionToken] = useState<string | null>(null)
@@ -36,6 +68,26 @@ function App() {
     }
   };
 
+
+  const [currentCost, setCurrentCost] = useState<number | null>(null);
+
+  useEffect(() => {
+    // Function to fetch and update the cost
+    const updateCost = async () => {
+      const cost = await fetchCurrentCost(currentUrl);
+      setCurrentCost(cost);
+    };
+
+    // Call immediately on mount
+    updateCost();
+
+    // Set up interval to fetch cost every 5 seconds
+    const intervalId = setInterval(updateCost, 5000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [currentUrl]); // Re-run effect when URL changes
+
   return (
     <div className="p-4 min-w-[400px]">
       <div style={{ marginTop: '16px' }}>
@@ -44,6 +96,9 @@ function App() {
         </p>
         <p style={{ margin: '8px 0', wordBreak: 'break-all' }}>
           Session Token: {sessionToken ? '✅ Received' : '❌ Not received'}
+        </p>
+        <p style={{ margin: '8px 0', wordBreak: 'break-all' }}>
+          Current Cost: {JSON.stringify(currentCost)}
         </p>
         <button
           onClick={handleOpenLocalhost}
