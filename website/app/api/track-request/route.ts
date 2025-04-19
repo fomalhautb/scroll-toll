@@ -168,4 +168,42 @@ export async function POST(req: Request) {
     console.error("Error tracking request:", error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
+}
+
+export async function GET(req: Request) {
+  try {
+    const user = await stackServerApp.getUser();
+    if (!user?.primaryEmail) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const userId = user.id;
+    const currentState = userStates.get(userId);
+
+    if (!currentState) {
+      return NextResponse.json({
+        success: true,
+        message: "No active tracking session",
+        currentRequestCount: 0,
+        minimumCharge: 0.50,
+        currentCharge: 0
+      });
+    }
+
+    const requestCount = currentState.requestCount;
+    const calculatedAmount = requestCount * 0.04;
+    const currentCharge = Math.max(calculatedAmount, 0.50);
+
+    return NextResponse.json({
+      success: true,
+      message: "Current tracking status",
+      currentRequestCount: requestCount,
+      minimumCharge: 0.50,
+      currentCharge: currentCharge,
+      url: currentState.url
+    });
+  } catch (error) {
+    console.error("Error getting tracking status:", error);
+    return new NextResponse("Internal Server Error", { status: 500 });
+  }
 } 
