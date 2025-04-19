@@ -180,7 +180,7 @@ export default function DashboardPage() {
         ) : (
           <>
             <div
-              className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"
+              className="grid gap-4 md:grid-cols-1 lg:grid-cols-2"
               data-oid="9rt5xdl"
             >
               <Card data-oid="uogmb.-">
@@ -234,74 +234,13 @@ export default function DashboardPage() {
                   </p>
                 </CardContent>
               </Card>
-
-              <Card data-oid="9v4qerj">
-                <CardHeader
-                  className="flex flex-row items-center justify-between space-y-0 pb-2"
-                  data-oid="0tk4ln."
-                >
-                  <CardTitle className="text-sm font-medium" data-oid="ip8t8gh">
-                    Average Cost/Hour
-                  </CardTitle>
-                  <DollarSign
-                    className="h-4 w-4 text-muted-foreground"
-                    data-oid="_sripcf"
-                  />
-                </CardHeader>
-                <CardContent data-oid="kr.964g">
-                  <div className="text-2xl font-bold" data-oid="8y16q.e">
-                    $
-                    {((usageData.totalCost / usageData.totalTime) * 60).toFixed(
-                      2,
-                    )}
-                  </div>
-                  <p
-                    className="text-xs text-muted-foreground"
-                    data-oid="96xia:z"
-                  >
-                    Based on your usage
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card data-oid="b7osmt3">
-                <CardHeader
-                  className="flex flex-row items-center justify-between space-y-0 pb-2"
-                  data-oid="45cc61f"
-                >
-                  <CardTitle className="text-sm font-medium" data-oid="d6qirqt">
-                    Most Visited
-                  </CardTitle>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    className="h-4 w-4 text-muted-foreground"
-                    data-oid="89z498f"
-                  >
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" data-oid="r6thw:c" />
-                  </svg>
-                </CardHeader>
-                <CardContent data-oid="2e4yeve">
-                  <div className="text-2xl font-bold" data-oid="2:j4rf1">
-                    {usageData.websiteBreakdown[0]?.website || "N/A"}
-                  </div>
-                  <p
-                    className="text-xs text-muted-foreground"
-                    data-oid="4yg6mnb"
-                  >
-                    {formatTime(usageData.websiteBreakdown[0]?.time || 0)} spent
-                  </p>
-                </CardContent>
-              </Card>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-7" data-oid="t6wdmmb">
-              <Card className="col-span-4" data-oid="tmo-4hs">
+            <div
+              className="grid gap-4 md:grid-cols-1 lg:grid-cols-7"
+              data-oid="t6wdmmb"
+            >
+              <Card className="col-span-1 lg:col-span-4" data-oid="tmo-4hs">
                 <CardHeader data-oid="_ob-qu0">
                   <CardTitle data-oid="y:-c1p:">Usage Over Time</CardTitle>
                 </CardHeader>
@@ -310,7 +249,7 @@ export default function DashboardPage() {
                 </CardContent>
               </Card>
 
-              <Card className="col-span-3" data-oid="l2ta68m">
+              <Card className="col-span-1 lg:col-span-3" data-oid="l2ta68m">
                 <CardHeader data-oid="rrcbe-j">
                   <CardTitle data-oid="v:aeq7n">Website Breakdown</CardTitle>
                   <CardDescription data-oid="fqtrrd_">
@@ -343,7 +282,9 @@ export default function DashboardPage() {
                             <div
                               className="h-full bg-primary"
                               style={{
-                                width: `${(site.time / usageData.totalTime) * 100}%`,
+                                width: `${
+                                  (site.time / usageData.totalTime) * 100
+                                }%`,
                               }}
                               data-oid="g6otj0i"
                             />

@@ -1,94 +1,16 @@
 "use client";
 
-import SidebarLayout, { SidebarItem } from "@/components/sidebar-layout";
-import { SelectedTeamSwitcher, useUser } from "@stackframe/stack";
-import {
-  BadgePercent,
-  BarChart4,
-  Columns3,
-  Globe,
-  Locate,
-  Settings2,
-  ShoppingBag,
-  ShoppingCart,
-  Users,
-} from "lucide-react";
+import { UserButton, useUser } from "@stackframe/stack";
 import { useParams, useRouter } from "next/navigation";
-
-const navigationItems: SidebarItem[] = [
-  {
-    name: "Overview",
-    href: "/",
-    icon: Globe,
-    type: "item",
-  },
-  {
-    type: "label",
-    name: "Management",
-  },
-  {
-    name: "Products",
-    href: "/products",
-    icon: ShoppingBag,
-    type: "item",
-  },
-  {
-    name: "People",
-    href: "/people",
-    icon: Users,
-    type: "item",
-  },
-  {
-    name: "Segments",
-    href: "/segments",
-    icon: Columns3,
-    type: "item",
-  },
-  {
-    name: "Regions",
-    href: "/regions",
-    icon: Locate,
-    type: "item",
-  },
-  {
-    type: "label",
-    name: "Monetization",
-  },
-  {
-    name: "Revenue",
-    href: "/revenue",
-    icon: BarChart4,
-    type: "item",
-  },
-  {
-    name: "Orders",
-    href: "/orders",
-    icon: ShoppingCart,
-    type: "item",
-  },
-  {
-    name: "Discounts",
-    href: "/discounts",
-    icon: BadgePercent,
-    type: "item",
-  },
-  {
-    type: "label",
-    name: "Settings",
-  },
-  {
-    name: "Configuration",
-    href: "/configuration",
-    icon: Settings2,
-    type: "item",
-  },
-];
+import { useTheme } from "next-themes";
+import { Logo } from "@/components/logo";
 
 export default function Layout(props: { children: React.ReactNode }) {
   const params = useParams<{ teamId: string }>();
   const user = useUser({ or: "redirect" });
   const team = user.useTeam(params.teamId);
   const router = useRouter();
+  const { resolvedTheme, setTheme } = useTheme();
 
   if (!team) {
     router.push("/dashboard");
@@ -96,25 +18,22 @@ export default function Layout(props: { children: React.ReactNode }) {
   }
 
   return (
-    <SidebarLayout
-      items={navigationItems}
-      basePath={`/dashboard/${team.id}`}
-      sidebarTop={
-        <SelectedTeamSwitcher
-          selectedTeam={team}
-          urlMap={(team) => `/dashboard/${team.id}`}
-          data-oid="2005vpn"
+    <div className="min-h-screen bg-background" data-oid="z:bjm:6">
+      <header
+        className="h-14 border-b flex items-center justify-between sticky top-0 bg-background z-10 px-4 md:px-6"
+        data-oid="jv7i8qp"
+      >
+        <div className="font-medium" data-oid=":87tgca">
+          <Logo data-oid="_6u.-cr" />
+        </div>
+        <UserButton
+          colorModeToggle={() =>
+            setTheme(resolvedTheme === "light" ? "dark" : "light")
+          }
+          data-oid="bppj03g"
         />
-      }
-      baseBreadcrumb={[
-        {
-          title: team.displayName,
-          href: `/dashboard/${team.id}`,
-        },
-      ]}
-      data-oid="1j0a:ct"
-    >
-      {props.children}
-    </SidebarLayout>
+      </header>
+      <main data-oid=".wu2seu">{props.children}</main>
+    </div>
   );
 }
