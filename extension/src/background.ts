@@ -89,4 +89,4 @@ setInterval(async () => {
     } catch (error) {
         console.error('Error in periodic URL reporting:', error);
     }
-}, 10000); // Run every 10 seconds (10000 milliseconds)
+}, 1000); // Run every 10 seconds (10000 milliseconds)
