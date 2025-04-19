@@ -111,7 +111,7 @@ export async function POST(req: Request) {
     const urlObj = new URL(url);
     const domain = urlObj.hostname;
     
-    if (!allowedDomains.includes(domain)) {
+    if (!allowedDomains.some(allowedDomain => domain.includes(allowedDomain))) {
       return NextResponse.json({ 
         success: true,
         message: "Request not tracked - domain not supported",
