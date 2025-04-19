@@ -27,31 +27,41 @@ export function PricingCard(props: PricingCardProps) {
       className={`w-full max-w-sm ${
         props.isPopular ? "border-primary border-2 shadow-lg" : ""
       }`}
+      data-oid="hb6.diz"
     >
-      <CardHeader>
-        <CardTitle className="text-2xl font-bold">{props.title}</CardTitle>
-        <CardDescription>{props.description}</CardDescription>
+      <CardHeader data-oid="vm05g_n">
+        <CardTitle className="text-2xl font-bold" data-oid="f6fegg9">
+          {props.title}
+        </CardTitle>
+        <CardDescription data-oid="z17nex2">
+          {props.description}
+        </CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="mb-4">
-          <span className="text-4xl font-bold">{props.price}</span>
-          <span className="text-muted-foreground">/month</span>
+      <CardContent data-oid="5kgx-pd">
+        <div className="mb-4" data-oid="feqrfk1">
+          <span className="text-4xl font-bold" data-oid="neixr9x">
+            {props.price}
+          </span>
+          <span className="text-muted-foreground" data-oid="6m_nxj2">
+            /month
+          </span>
         </div>
-        <ul className="space-y-2">
+        <ul className="space-y-2" data-oid="qwsd217">
           {props.features.map((feature, index) => (
-            <li key={index} className="flex items-center">
-              <Check className="mr-2 h-4 w-4 text-primary" />
-              <span>{feature}</span>
+            <li key={index} className="flex items-center" data-oid="j132dvt">
+              <Check className="mr-2 h-4 w-4 text-primary" data-oid="-y23x4l" />
+              <span data-oid="ms13ku2">{feature}</span>
             </li>
           ))}
         </ul>
       </CardContent>
-      <CardFooter>
+      <CardFooter data-oid="c4uug2q">
         <Link
           href={props.buttonHref}
           className={buttonVariants({
             variant: props.isPopular ? "default" : "outline",
           })}
+          data-oid="5kyhqsx"
         >
           {props.buttonText}
         </Link>
@@ -69,17 +79,29 @@ export function PricingGrid(props: {
     <section
       id="features"
       className="container space-y-6 py-8 md:py-12 lg:py-24"
+      data-oid="o9l:zug"
     >
-      <div className="mx-auto flex max-w-6xl flex-col items-center space-y-4 text-center">
-        <h2 className="text-3xl md:text-4xl font-semibold">{props.title}</h2>
-        <p className="max-w-[85%] text-muted-foreground sm:text-lg">
+      <div
+        className="mx-auto flex max-w-6xl flex-col items-center space-y-4 text-center"
+        data-oid="sajei1c"
+      >
+        <h2 className="text-3xl md:text-4xl font-semibold" data-oid="afykusr">
+          {props.title}
+        </h2>
+        <p
+          className="max-w-[85%] text-muted-foreground sm:text-lg"
+          data-oid="ym1v:vo"
+        >
           {props.subtitle}
         </p>
       </div>
 
-      <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-5xl md:grid-cols-3">
+      <div
+        className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-5xl md:grid-cols-3"
+        data-oid="a4ecsxb"
+      >
         {props.items.map((item, index) => (
-          <PricingCard key={index} {...item} />
+          <PricingCard key={index} {...item} data-oid="oeqvyb5" />
         ))}
       </div>
     </section>

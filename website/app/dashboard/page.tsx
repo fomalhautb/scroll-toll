@@ -5,5 +5,5 @@ export const metadata = {
 };
 
 export default function Dashboard() {
-  return <PageClient />;
+  return <PageClient data-oid="rk_o:1v" />;
 }
