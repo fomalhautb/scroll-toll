@@ -119,6 +119,7 @@ export function Hero(props: {
                 d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
                 data-oid="zrvojdf"
               />
+
               <path d="M8 14s1.5 2 4 2 4-2 4-2" data-oid="mooe_1l" />
               <line x1="9" y1="9" x2="9.01" y2="9" data-oid="3x4uikf" />
               <line x1="15" y1="9" x2="15.01" y2="9" data-oid="wisesx:" />
