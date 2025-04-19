@@ -53,26 +53,43 @@ async function chargeUser(userId: string, email: string, requestCount: number, u
     }
 
     const customer = customers.data[0];
-    const amount = requestCount * 4; // $0.04 per request in cents
+    
+    // Get the default payment method
+    const paymentMethods = await stripe.paymentMethods.list({
+      customer: customer.id,
+      type: 'card',
+    });
+
+    if (paymentMethods.data.length === 0) {
+      console.error("No payment method found for customer:", customer.id);
+      return;
+    }
+
+    const defaultPaymentMethod = paymentMethods.data[0];
+    
+    // Calculate amount based on requests, minimum $0.50
+    const amountPerRequest = 4; // $0.04 in cents
+    const calculatedAmount = requestCount * amountPerRequest;
+    const amount = Math.max(calculatedAmount, 50); // Minimum $0.50 (50 cents)
 
     // Create a payment intent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
       currency: 'usd',
       customer: customer.id,
-      automatic_payment_methods: {
-        enabled: true,
-      },
+      payment_method: defaultPaymentMethod.id,
+      off_session: true,
+      confirm: true,
       metadata: {
         userId,
         url,
         requestCount,
+        originalAmount: calculatedAmount,
+        adjustedAmount: amount
       },
     });
 
-    // Confirm the payment intent
-    await stripe.paymentIntents.confirm(paymentIntent.id);
-    console.log(`Charged user ${userId} $${amount/100} for ${requestCount} requests`);
+    console.log(`Charged user ${userId} $${amount/100} for ${requestCount} requests (minimum charge applied)`);
   } catch (error) {
     console.error("Error charging user:", error);
   }
@@ -88,6 +105,20 @@ export async function POST(req: Request) {
     const { url } = await req.json();
     if (!url) {
       return new NextResponse("URL is required", { status: 400 });
+    }
+
+    const allowedDomains = ['facebook.com', 'x.com', 'instagram.com'];
+    const urlObj = new URL(url);
+    const domain = urlObj.hostname;
+    
+    if (!allowedDomains.includes(domain)) {
+      return NextResponse.json({ 
+        success: true,
+        message: "Request not tracked - domain not supported",
+        currentRequestCount: 0,
+        minimumCharge: 0,
+        currentCharge: 0
+      });
     }
 
     // Check for valid payment method
@@ -129,7 +160,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ 
       success: true,
       message: "Request tracked successfully",
-      currentRequestCount: requestCount
+      currentRequestCount: requestCount,
+      minimumCharge: 0.50,
+      currentCharge: Math.max(requestCount * 0.04, 0.50)
     });
   } catch (error) {
     console.error("Error tracking request:", error);
