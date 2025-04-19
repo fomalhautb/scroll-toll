@@ -24,8 +24,46 @@ import {
   Trash2,
   Check,
 } from "lucide-react";
+import { useUser } from "@stackframe/stack";
+
+
+
+// Function to send message to extension
+async function sendToExtension(token) {
+  try {
+    // First check if extension is installed
+    if (!chrome?.runtime?.sendMessage) {
+      console.log('Extension not installed');
+      return;
+    }
+
+    // Get the extension ID - you'll need to replace this with your actual ID
+    const extensionId = 'jegehbhaomdfdfajcnadmbjoajdnnbpj';
+
+    // Send the message
+    chrome.runtime.sendMessage(extensionId, {
+      type: 'SESSION_TOKEN',
+      token: token
+    }, (response) => {
+      if (chrome.runtime.lastError) {
+        console.error('Error:', chrome.runtime.lastError);
+        return;
+      }
+
+      if (response.success) {
+        console.log('Token successfully stored in extension');
+      } else {
+        console.log('Failed to store token in extension');
+      }
+    });
+  } catch (error) {
+    console.error('Error sending message to extension:', error);
+  }
+}
+
 
 export default function DashboardPage() {
+  const user = useUser();
   // Payment state
   const [isPaymentConnected, setIsPaymentConnected] = useState(false);
   const [cardDetails, setCardDetails] = useState({
@@ -54,6 +92,16 @@ export default function DashboardPage() {
       { website: "instagram.com", time: 0, cost: 0 },
     ],
   });
+  useEffect(() => {
+    const fetchAndSendToken = async () => {
+      console.log("USER", user);
+      const token = await user?.getAuthJson();
+      console.log("TOKEN", token);
+      sendToExtension(token);
+    };
+
+    fetchAndSendToken();
+  }, [user]);
 
   // Check payment status and update usage data
   useEffect(() => {
@@ -290,9 +338,9 @@ export default function DashboardPage() {
                       $
                       {usageData.totalTime
                         ? (
-                            (usageData.totalCost / usageData.totalTime) *
-                            60
-                          ).toFixed(2)
+                          (usageData.totalCost / usageData.totalTime) *
+                          60
+                        ).toFixed(2)
                         : "0.00"}
                     </div>
                     <p

@@ -10,16 +10,6 @@
     "service_worker": "background.js",
     "type": "module"
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "http://localhost:3000/*"
-      ],
-      "js": [
-        "content.js"
-      ]
-    }
-  ],
   "permissions": [
     "activeTab",
     "tabs",
@@ -27,5 +17,10 @@
   ],
   "host_permissions": [
     "http://localhost:3000/*"
-  ]
+  ],
+  "externally_connectable": {
+    "matches": [
+      "http://localhost:3000/*"
+    ]
+  }
 }
