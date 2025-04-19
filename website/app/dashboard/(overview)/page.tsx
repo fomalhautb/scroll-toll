@@ -62,12 +62,6 @@ async function sendToExtension(token) {
 export default function DashboardPage() {
   const user = useUser({ or: "redirect" });
   const [isPaymentConnected, setIsPaymentConnected] = useState(false);
-  const [cardDetails, setCardDetails] = useState({
-    cardNumber: "",
-    cardholderName: "",
-    expiryDate: "",
-    cvv: "",
-  });
 
   // Website settings state
   const [websites, setWebsites] = useState([
@@ -114,17 +108,17 @@ export default function DashboardPage() {
           {
             website: "twitter.com",
             time: Math.floor(time * 0.5),
-            cost: (Math.floor(time * 0.5) * 0.25).toFixed(2),
+            cost: Math.floor(time * 0.5) * 0.25,
           },
           {
             website: "facebook.com",
             time: Math.floor(time * 0.3),
-            cost: (Math.floor(time * 0.3) * 0.15).toFixed(2),
+            cost: Math.floor(time * 0.3) * 0.15,
           },
           {
             website: "instagram.com",
             time: Math.floor(time * 0.2),
-            cost: (Math.floor(time * 0.2) * 0.2).toFixed(2),
+            cost: Math.floor(time * 0.2) * 0.2,
           },
         ];
 
@@ -139,22 +133,16 @@ export default function DashboardPage() {
     checkPaymentStatus();
   }, []);
 
-  // Payment handlers
-  const handlePaymentSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsPaymentConnected(true);
-    localStorage.setItem("paymentConnected", "true");
-  };
-
-  const handleDisconnectPayment = () => {
-    setIsPaymentConnected(false);
-    localStorage.setItem("paymentConnected", "false");
-    setCardDetails({
-      cardNumber: "",
-      cardholderName: "",
-      expiryDate: "",
-      cvv: "",
+  const handlePortalClick = async () => {
+    const response = await fetch("/api/stripe/create-portal-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
+
+    const { url } = await response.json();
+    window.location.href = url;
   };
 
   // Website settings handlers
@@ -239,12 +227,7 @@ export default function DashboardPage() {
                 </CardDescription>
               </CardHeader>
               <CardFooter data-oid="q4yed--">
-                <Button
-                  onClick={() =>
-                    document.querySelector('[data-value="payment"]')?.click()
-                  }
-                  data-oid="u_ce2i_"
-                >
+                <Button onClick={handlePortalClick} data-oid="u_ce2i_">
                   Connect Payment Method
                 </Button>
               </CardFooter>
@@ -578,155 +561,44 @@ export default function DashboardPage() {
 
         {/* Payment Method Tab */}
         <TabsContent value="payment" className="space-y-6" data-oid="ho-2zfs">
-          {isPaymentConnected ? (
-            <Card data-oid="o2mgu9-">
-              <CardHeader data-oid="f73epge">
-                <CardTitle className="flex items-center" data-oid="im3dqrb">
-                  <Check
-                    className="h-5 w-5 mr-2 text-green-500"
-                    data-oid="j2z5q9g"
-                  />
-                  Payment Method Connected
-                </CardTitle>
-                <CardDescription data-oid="la_tyhm">
-                  Your payment method has been successfully connected.
-                </CardDescription>
-              </CardHeader>
-              <CardContent data-oid="pz:6qwm">
-                <div
-                  className="flex items-center space-x-4 rounded-md border p-4"
-                  data-oid="saqs.d:"
-                >
-                  <CreditCard
-                    className="h-8 w-8 text-primary"
-                    data-oid="919mth3"
-                  />
-
-                  <div data-oid="8wiz9d3">
-                    <p
-                      className="text-sm font-medium leading-none"
-                      data-oid="5:m:6zy"
-                    >
-                      •••• •••• ••••{" "}
-                      {cardDetails.cardNumber.slice(-4) || "1234"}
-                    </p>
-                    <p
-                      className="text-sm text-muted-foreground"
-                      data-oid="nclyuqw"
-                    >
-                      Expires {cardDetails.expiryDate || "12/25"}
-                    </p>
-                  </div>
+          <Card data-oid="o2mgu9-">
+            <CardHeader data-oid="f73epge">
+              <CardTitle className="flex items-center" data-oid="im3dqrb">
+                <Check
+                  className="h-5 w-5 mr-2 text-green-500"
+                  data-oid="j2z5q9g"
+                />
+                Payment Method Connected
+              </CardTitle>
+              <CardDescription data-oid="la_tyhm">
+                Your payment method has been successfully connected.
+              </CardDescription>
+            </CardHeader>
+            <CardContent data-oid="pz:6qwm">
+              <div
+                className="flex items-center space-x-4 rounded-md border p-4"
+                data-oid="saqs.d:"
+              >
+                <CreditCard
+                  className="h-8 w-8 text-primary"
+                  data-oid="919mth3"
+                />
+                <div data-oid="8wiz9d3">
+                  <p
+                    className="text-sm font-medium leading-none"
+                    data-oid="5:m:6zy"
+                  >
+                    Manage your payment methods through Stripe
+                  </p>
                 </div>
-              </CardContent>
-              <CardFooter data-oid="006ziy3">
-                <Button
-                  variant="outline"
-                  onClick={handleDisconnectPayment}
-                  data-oid="fuamf4j"
-                >
-                  Disconnect Payment Method
-                </Button>
-              </CardFooter>
-            </Card>
-          ) : (
-            <Card data-oid="y90..5o">
-              <CardHeader data-oid="jptpr.m">
-                <CardTitle data-oid="k7dv:2q">Connect Payment Method</CardTitle>
-                <CardDescription data-oid="hy11yp1">
-                  Add a payment method to enable the Scroll Toll extension.
-                  You'll only be charged when you visit blocked websites.
-                </CardDescription>
-              </CardHeader>
-              <CardContent data-oid="mvsn-qx">
-                <form
-                  onSubmit={handlePaymentSubmit}
-                  className="space-y-4"
-                  data-oid="8wv3l06"
-                >
-                  <div className="space-y-2" data-oid="l-t.p8j">
-                    <Label htmlFor="cardNumber" data-oid="yhh2i46">
-                      Card Number
-                    </Label>
-                    <Input
-                      id="cardNumber"
-                      placeholder="1234 5678 9012 3456"
-                      value={cardDetails.cardNumber}
-                      onChange={(e) =>
-                        setCardDetails({
-                          ...cardDetails,
-                          cardNumber: e.target.value,
-                        })
-                      }
-                      required
-                      data-oid="zmg745p"
-                    />
-                  </div>
-                  <div className="space-y-2" data-oid="7k3an1y">
-                    <Label htmlFor="cardholderName" data-oid="m526zvz">
-                      Cardholder Name
-                    </Label>
-                    <Input
-                      id="cardholderName"
-                      placeholder="John Doe"
-                      value={cardDetails.cardholderName}
-                      onChange={(e) =>
-                        setCardDetails({
-                          ...cardDetails,
-                          cardholderName: e.target.value,
-                        })
-                      }
-                      required
-                      data-oid="m6gsq4w"
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-4" data-oid="7mqju80">
-                    <div className="space-y-2" data-oid="e4.o-2r">
-                      <Label htmlFor="expiryDate" data-oid="zkh6wuq">
-                        Expiry Date
-                      </Label>
-                      <Input
-                        id="expiryDate"
-                        placeholder="MM/YY"
-                        value={cardDetails.expiryDate}
-                        onChange={(e) =>
-                          setCardDetails({
-                            ...cardDetails,
-                            expiryDate: e.target.value,
-                          })
-                        }
-                        required
-                        data-oid="0a-l3hg"
-                      />
-                    </div>
-                    <div className="space-y-2" data-oid="rdqc9an">
-                      <Label htmlFor="cvv" data-oid="q79j.:1">
-                        CVV
-                      </Label>
-                      <Input
-                        id="cvv"
-                        placeholder="123"
-                        type="password"
-                        maxLength={4}
-                        value={cardDetails.cvv}
-                        onChange={(e) =>
-                          setCardDetails({
-                            ...cardDetails,
-                            cvv: e.target.value,
-                          })
-                        }
-                        required
-                        data-oid="2fu6_rg"
-                      />
-                    </div>
-                  </div>
-                  <Button type="submit" className="w-full" data-oid="uxqvgax">
-                    Connect Payment Method
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          )}
+              </div>
+            </CardContent>
+            <CardFooter data-oid="006ziy3">
+              <Button onClick={handlePortalClick} data-oid="fuamf4j">
+                Manage Payment Methods
+              </Button>
+            </CardFooter>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>
