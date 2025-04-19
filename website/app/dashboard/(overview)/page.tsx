@@ -24,9 +24,10 @@ import {
   Trash2,
   Check,
 } from "lucide-react";
+import { useUser } from "@stackframe/stack";
 
 export default function DashboardPage() {
-  // Payment state
+  useUser({ or: "redirect" });
   const [isPaymentConnected, setIsPaymentConnected] = useState(false);
   const [cardDetails, setCardDetails] = useState({
     cardNumber: "",
@@ -130,7 +131,7 @@ export default function DashboardPage() {
   const handleWebsiteChange = (
     index: number,
     field: string,
-    value: string | number,
+    value: string | number
   ) => {
     const updatedWebsites = [...websites];
     updatedWebsites[index] = {
@@ -387,7 +388,9 @@ export default function DashboardPage() {
                               <div
                                 className="h-full bg-primary"
                                 style={{
-                                  width: `${(site.time / usageData.totalTime) * 100}%`,
+                                  width: `${
+                                    (site.time / usageData.totalTime) * 100
+                                  }%`,
                                 }}
                                 data-oid=".yc1099"
                               />
@@ -461,7 +464,7 @@ export default function DashboardPage() {
                           handleWebsiteChange(
                             index,
                             "costPerMinute",
-                            e.target.value,
+                            e.target.value
                           )
                         }
                         data-oid="063mkkm"
