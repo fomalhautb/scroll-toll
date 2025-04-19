@@ -1,7 +1,7 @@
 export default function Page() {
   return (
-    <div>
-      <h1>Example Page</h1>
+    <div data-oid="lf1shhh">
+      <h1 data-oid="l3sqyee">Example Page</h1>
     </div>
-  )
+  );
 }

@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 const data = [
   {
@@ -51,33 +51,38 @@ const data = [
     name: "Dec",
     total: Math.floor(Math.random() * 5000) + 1000,
   },
-]
+];
 
 export function Graph() {
   return (
-    <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data}>
+    <ResponsiveContainer width="100%" height={350} data-oid="xq_xovx">
+      <BarChart data={data} data-oid="h1wc23y">
         <XAxis
           dataKey="name"
           stroke="#888888"
           fontSize={12}
           tickLine={false}
           axisLine={false}
+          data-oid="n7h3-z."
         />
+
         <YAxis
           stroke="#888888"
           fontSize={12}
           tickLine={false}
           axisLine={false}
           tickFormatter={(value) => `$${value}`}
+          data-oid="c98ki9."
         />
+
         <Bar
           dataKey="total"
           fill="currentColor"
           radius={[4, 4, 0, 0]}
           className="fill-primary"
+          data-oid="_1shnfw"
         />
       </BarChart>
     </ResponsiveContainer>
-  )
+  );
 }

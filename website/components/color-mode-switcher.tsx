@@ -14,17 +14,19 @@ export function ColorModeSwitcher() {
         size="icon"
         onClick={() => setTheme("dark")}
         className="dark:hidden"
+        data-oid="1o25vv_"
       >
-        <Moon />
+        <Moon data-oid="vpipc0u" />
       </Button>
-      
+
       <Button
         variant="ghost"
         size="icon"
         onClick={() => setTheme("light")}
         className="hidden dark:flex"
+        data-oid="qsl3lmz"
       >
-        <Sun />
+        <Sun data-oid="z5h-sot" />
       </Button>
     </>
   );
