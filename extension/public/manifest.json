@@ -6,13 +6,26 @@
   "action": {
     "default_popup": "index.html"
   },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://localhost:3000/*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
   "permissions": [
     "activeTab",
-    "tabs"
+    "tabs",
+    "storage"
   ],
-  "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
-  }
+  "host_permissions": [
+    "http://localhost:3000/*"
+  ]
 }
