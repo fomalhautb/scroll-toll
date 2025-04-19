@@ -24,7 +24,7 @@ const fetchCurrentCost = async (
     }
 
     const data = await response.json();
-    return data.cost;
+    return Number(data.cost);
   } catch (error) {
     console.error("Error fetching current cost:", error);
     return null;
