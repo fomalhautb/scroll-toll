@@ -5,19 +5,21 @@ export function FeatureGridItem(props: {
 }) {
   return (
     <div
-      className="relative overflow-hidden rounded-lg border bg-background p-2"
+      className="relative overflow-hidden rounded-2xl border bg-card p-2 transition-all duration-300 hover:shadow-md hover:-translate-y-1"
       data-oid="gc7vwm1"
     >
       <div
-        className="flex h-[180px] flex-col rounded-md p-6 gap-4"
+        className="flex h-[200px] flex-col rounded-xl p-8 gap-4 items-center text-center"
         data-oid="rt4t4fn"
       >
-        {props.icon}
+        <div className="p-3 rounded-full bg-secondary/50" data-oid="yeml3_9">
+          {props.icon}
+        </div>
         <div className="space-y-2" data-oid="rw9ikcu">
-          <h3 className="font-bold" data-oid="g2p30d2">
+          <h3 className="font-medium text-xl" data-oid="g2p30d2">
             {props.title}
           </h3>
-          <p className="text-sm text-muted-foreground" data-oid="q-q9_21">
+          <p className="text-muted-foreground" data-oid="q-q9_21">
             {props.description}
           </p>
         </div>
@@ -38,18 +40,18 @@ export function FeatureGrid(props: {
   return (
     <section
       id="features"
-      className="container space-y-6 py-8 md:py-12 lg:py-24"
+      className="container space-y-10 py-16 md:py-24"
       data-oid="4g082oj"
     >
       <div
-        className="mx-auto flex max-w-6xl flex-col items-center space-y-4 text-center"
+        className="mx-auto flex max-w-3xl flex-col items-center space-y-4 text-center"
         data-oid="qeprost"
       >
-        <h2 className="text-3xl md:text-4xl font-semibold" data-oid="zx2fbwo">
+        <h2 className="text-3xl md:text-4xl font-medium" data-oid="zx2fbwo">
           {props.title}
         </h2>
         <p
-          className="max-w-[85%] text-muted-foreground sm:text-lg"
+          className="text-muted-foreground sm:text-lg leading-relaxed"
           data-oid="dwhs7.:"
         >
           {props.subtitle}
@@ -57,12 +59,19 @@ export function FeatureGrid(props: {
       </div>
 
       <div
-        className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-5xl md:grid-cols-3"
+        className="mx-auto grid justify-center gap-6 sm:grid-cols-2 md:max-w-5xl lg:grid-cols-4"
         data-oid="o0pehd9"
       >
         {props.items.map((item, index) => (
           <FeatureGridItem key={index} {...item} data-oid="mtblk3d" />
         ))}
+      </div>
+
+      <div className="flex justify-center mt-12" data-oid="fwbm416">
+        <div
+          className="h-0.5 w-24 bg-primary/30 rounded-full"
+          data-oid="j3i6l8r"
+        ></div>
       </div>
     </section>
   );

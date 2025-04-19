@@ -1,113 +1,67 @@
 import { FeatureGrid } from "@/components/features";
 import { Hero } from "@/components/hero";
 import { HowItWorks } from "@/components/how-it-works";
-import { PricingGrid } from "@/components/pricing";
-import { Clock, DollarSign, Shield, Zap } from "lucide-react";
+import { Philosophy } from "@/components/philosophy";
+import { Heart, Leaf, Sparkles, Sun } from "lucide-react";
 
 export default function IndexPage() {
   return (
     <>
       <Hero
-        capsuleText="Break Free from Doom Scrolling"
-        capsuleLink="/#features"
-        title="Scroll Toll: Pay to Procrastinate"
-        subtitle="A Chrome extension that charges you money when you visit distracting websites. Take control of your online habits and boost your productivity."
-        primaryCtaText="Install Extension"
+        capsuleText="Digital Minimalism"
+        capsuleLink="/#philosophy"
+        title="Spark Joy in Your Digital Life"
+        subtitle="A mindful approach to your online experience. Our extension helps you create a digital space that brings peace and purpose to your daily life."
+        primaryCtaText="Begin Your Journey"
         primaryCtaLink="https://chrome.google.com/webstore"
-        secondaryCtaText="Learn More"
-        secondaryCtaLink="/#how-it-works"
-        credits={<>Reclaim your time and focus with Scroll Toll</>}
-        data-oid=":3-dnbd"
+        secondaryCtaText="Learn Our Philosophy"
+        secondaryCtaLink="/#philosophy"
+        credits={<>Inspired by Marie Kondo's philosophy of mindful living</>}
+        data-oid="akjx9ja"
       />
 
-      <div id="features" data-oid="uf7b.ar" />
+      <div id="features" data-oid="z24_ku7" />
       <FeatureGrid
         title="Features"
-        subtitle="Why Scroll Toll is the ultimate productivity tool"
+        subtitle="Thoughtful tools for a more intentional digital experience"
         items={[
           {
-            icon: <DollarSign className="h-12 w-12" data-oid="mlotb_5" />,
-            title: "Financial Incentive",
+            icon: (
+              <Sparkles className="h-12 w-12 text-primary" data-oid="0.7ypc3" />
+            ),
+            title: "Joy Check",
             description:
-              "Create a real cost for procrastination that helps you break bad habits",
+              "Pause before visiting distracting sites and ask: 'Does this spark joy or serve a purpose?'",
           },
           {
-            icon: <Zap className="h-12 w-12" data-oid="ua6-_fh" />,
-            title: "Instant Feedback",
+            icon: <Sun className="h-12 w-12 text-primary" data-oid="1ao2feu" />,
+            title: "Mindful Moments",
             description:
-              "Get immediate notifications when you're about to waste time",
+              "Gentle reminders to take a breath and consider if this is how you want to spend your time",
           },
           {
-            icon: <Shield className="h-12 w-12" data-oid=".7c6qy2" />,
-            title: "Customizable Blocklist",
+            icon: (
+              <Leaf className="h-12 w-12 text-primary" data-oid="tzm46hu" />
+            ),
+            title: "Digital Decluttering",
             description:
-              "Choose which sites to block and set different fees for each one",
+              "Tools to help you organize your digital space and remove what no longer serves you",
           },
           {
-            icon: <Clock className="h-12 w-12" data-oid="qb2u:.2" />,
-            title: "Time Tracking",
+            icon: (
+              <Heart className="h-12 w-12 text-primary" data-oid="72jsc1." />
+            ),
+            title: "Gratitude Practice",
             description:
-              "See how much time and money you've saved by avoiding distractions",
+              "End each session with a moment to reflect on what you're grateful for today",
           },
         ]}
-        data-oid="thfjdro"
+        data-oid="kj4u.s8"
       />
 
-      <HowItWorks data-oid="_zwlww8" />
+      <Philosophy data-oid="x2pdtaa" />
 
-      <div id="pricing" data-oid="qj9k99c" />
-      <PricingGrid
-        title="Pricing"
-        subtitle="Simple, transparent pricing to help you stay focused"
-        items={[
-          {
-            title: "Basic",
-            price: "Free",
-            description: "Get started with the essentials",
-            features: [
-              "Block up to 3 websites",
-              "Set custom toll amounts",
-              "Basic usage statistics",
-              "Chrome extension",
-            ],
-
-            buttonText: "Install Free",
-            buttonHref: "https://chrome.google.com/webstore",
-          },
-          {
-            title: "Premium",
-            price: "$4.99",
-            description: "For serious productivity enthusiasts",
-            features: [
-              "Unlimited website blocking",
-              "Advanced usage analytics",
-              "Schedule-based blocking",
-              "Custom donation options",
-              "Priority support",
-            ],
-
-            buttonText: "Get Premium",
-            isPopular: true,
-            buttonHref: "https://chrome.google.com/webstore",
-          },
-          {
-            title: "Team",
-            price: "$9.99",
-            description: "Perfect for small teams and families",
-            features: [
-              "All Premium features",
-              "Up to 5 user accounts",
-              "Team productivity dashboard",
-              "Group challenges",
-              "Admin controls",
-            ],
-
-            buttonText: "Start Team Plan",
-            buttonHref: "https://chrome.google.com/webstore",
-          },
-        ]}
-        data-oid="t_kn_n1"
-      />
+      <HowItWorks data-oid="z4rqk2r" />
     </>
   );
 }
