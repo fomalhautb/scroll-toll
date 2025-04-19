@@ -14,16 +14,26 @@ export function Footer(props: {
   linkedinLink: string;
 }) {
   return (
-    <footer className="border-t">
-      <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
-        <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+    <footer className="border-t" data-oid="i4bkbat">
+      <div
+        className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0"
+        data-oid="82x3x8l"
+      >
+        <div
+          className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0"
+          data-oid=".hn4:u_"
+        >
+          <p
+            className="text-center text-sm leading-loose text-muted-foreground md:text-left"
+            data-oid="rzerks."
+          >
             Built by{" "}
             <a
               href={props.builtByLink}
               target="_blank"
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
+              data-oid="ox3um.f"
             >
               {props.builtBy}
             </a>
@@ -33,6 +43,7 @@ export function Footer(props: {
               target="_blank"
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
+              data-oid="oxb1x-n"
             >
               GitHub
             </a>
@@ -40,7 +51,7 @@ export function Footer(props: {
           </p>
         </div>
 
-        <div className="flex items-center space-x-1">
+        <div className="flex items-center space-x-1" data-oid="1.tt4iz">
           {(
             [
               { href: props.twitterLink, icon: TwitterLogoIcon },
@@ -52,8 +63,9 @@ export function Footer(props: {
               href={link.href}
               className={buttonVariants({ variant: "ghost", size: "icon" })}
               key={index}
+              data-oid="s3xx:1k"
             >
-              <link.icon className="h-6 w-6" />
+              <link.icon className="h-6 w-6" data-oid="1e7z1p8" />
             </Link>
           ))}
         </div>
