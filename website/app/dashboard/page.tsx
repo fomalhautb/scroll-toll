@@ -1,9 +1,11 @@
-import { PageClient } from "./page-client";
+import { redirect } from "next/navigation";
 
 export const metadata = {
-  title: "Dashboard - Stack Template",
+  title: "Scroll Toll Dashboard",
 };
 
 export default function Dashboard() {
-  return <PageClient data-oid="rk_o:1v" />;
+  // Redirect to the team dashboard
+  // In a real app, you'd get the team ID from the user's session
+  redirect("/dashboard/default");
 }

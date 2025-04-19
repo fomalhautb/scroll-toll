@@ -10,10 +10,10 @@ export default function IndexPage() {
       <Hero
         capsuleText="Digital Minimalism"
         capsuleLink="/#philosophy"
-        title="Spark Joy in Your Digital Life"
+        title="Pay to Procrastinate"
         subtitle="A mindful approach to your online experience. Our extension helps you create a digital space that brings peace and purpose to your daily life."
         primaryCtaText="Begin Your Journey"
-        primaryCtaLink="https://chrome.google.com/webstore"
+        primaryCtaLink="/dashboard"
         secondaryCtaText="Learn Our Philosophy"
         secondaryCtaLink="/#philosophy"
         credits={<>Inspired by Marie Kondo's philosophy of mindful living</>}
@@ -29,6 +29,7 @@ export default function IndexPage() {
             icon: (
               <Sparkles className="h-12 w-12 text-primary" data-oid="0.7ypc3" />
             ),
+
             title: "Joy Check",
             description:
               "Pause before visiting distracting sites and ask: 'Does this spark joy or serve a purpose?'",
@@ -43,6 +44,7 @@ export default function IndexPage() {
             icon: (
               <Leaf className="h-12 w-12 text-primary" data-oid="tzm46hu" />
             ),
+
             title: "Digital Decluttering",
             description:
               "Tools to help you organize your digital space and remove what no longer serves you",
@@ -51,6 +53,7 @@ export default function IndexPage() {
             icon: (
               <Heart className="h-12 w-12 text-primary" data-oid="72jsc1." />
             ),
+
             title: "Gratitude Practice",
             description:
               "End each session with a moment to reflect on what you're grateful for today",
