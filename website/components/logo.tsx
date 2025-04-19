@@ -27,6 +27,7 @@ export function Logo(props: { className?: string; link?: string }) {
             d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"
             data-oid="aqa7c21"
           />
+
           <path d="M8 12h8" data-oid="de1hif9" />
           <path d="M12 8v8" data-oid="9j0lles" />
         </svg>
@@ -35,7 +36,7 @@ export function Logo(props: { className?: string; link?: string }) {
         className="font-medium text-lg sm:inline-block tracking-wide"
         data-oid="uwiao9d"
       >
-        Spark Joy
+        Scroll Toll
       </span>
     </Link>
   );
