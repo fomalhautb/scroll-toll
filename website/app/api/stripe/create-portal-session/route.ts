@@ -30,7 +30,7 @@ export async function POST() {
 
     // Create a portal session with proper URL scheme
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    const returnUrl = new URL('/dashboard/settings/payment-methods', baseUrl).toString();
+    const returnUrl = new URL('/dashboard', baseUrl).toString();
 
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: customer.id,
