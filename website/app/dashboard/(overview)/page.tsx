@@ -59,9 +59,6 @@ async function sendToExtension(token) {
   }
 }
 
-
-
-
 export default function DashboardPage() {
   const user = useUser({ or: "redirect" });
   const [isPaymentConnected, setIsPaymentConnected] = useState(false);
