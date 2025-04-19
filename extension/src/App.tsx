@@ -1,9 +1,18 @@
 import { useEffect, useState } from "react";
 
+interface TrackingResponse {
+  success: boolean;
+  message: string;
+  currentRequestCount: number;
+  minimumCharge: number;
+  currentCharge: number;
+  url: string;
+}
+
 // Function to fetch the current cost from the API
 const fetchCurrentCost = async (
   sessionToken: string
-): Promise<number | null> => {
+): Promise<TrackingResponse | null> => {
   try {
     // Only proceed if we have a session token
     if (!sessionToken) {
@@ -11,7 +20,7 @@ const fetchCurrentCost = async (
       return null;
     }
 
-    const response = await fetch("http://localhost:3000/api/get-cost", {
+    const response = await fetch("http://localhost:3000/api/track-request", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +33,7 @@ const fetchCurrentCost = async (
     }
 
     const data = await response.json();
-    return data.cost;
+    return data;
   } catch (error) {
     console.error("Error fetching current cost:", error);
     return null;
@@ -34,7 +43,7 @@ const fetchCurrentCost = async (
 function App() {
   const [currentUrl, setCurrentUrl] = useState<string>("");
   const [sessionToken, setSessionToken] = useState<string | null>(null);
-  const [currentCost, setCurrentCost] = useState<number | null>(null);
+  const [trackingData, setTrackingData] = useState<TrackingResponse | null>(null);
 
   useEffect(() => {
     // Only run Chrome-specific code if we're in a Chrome extension context
@@ -62,8 +71,8 @@ function App() {
     // Function to fetch and update the cost
     const updateCost = async () => {
       if (sessionToken) {
-        const cost = await fetchCurrentCost(sessionToken);
-        setCurrentCost(cost);
+        const data = await fetchCurrentCost(sessionToken);
+        setTrackingData(data);
       }
     };
 
@@ -71,7 +80,7 @@ function App() {
     updateCost();
 
     // Set up interval to fetch cost every 5 seconds
-    const intervalId = setInterval(updateCost, 5000);
+    const intervalId = setInterval(updateCost, 500);
 
     // Clean up interval on component unmount
     return () => clearInterval(intervalId);
@@ -101,7 +110,7 @@ function App() {
               Current URL
             </h2>
             <p className="text-sm text-gray-800 break-all">
-              {currentUrl || "Loading..."}
+              {trackingData?.url || currentUrl || "Loading..."}
             </p>
           </div>
 
@@ -124,13 +133,28 @@ function App() {
 
           <div className="bg-white p-4 rounded-lg shadow-sm">
             <h2 className="text-sm font-semibold text-gray-600 mb-2">
-              Current Cost
+              Usage Statistics
             </h2>
-            <p className="text-2xl font-bold text-gray-800">
-              {currentCost !== null
-                ? `$${currentCost.toFixed(2)}`
-                : "Loading..."}
-            </p>
+            <div className="space-y-2">
+              <div className="flex justify-between">
+                <span className="text-sm text-gray-600">Request Count:</span>
+                <span className="text-sm font-medium text-gray-800">
+                  {trackingData?.currentRequestCount ?? "Loading..."}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-gray-600">Minimum Charge:</span>
+                <span className="text-sm font-medium text-gray-800">
+                  ${trackingData?.minimumCharge?.toFixed(2) ?? "Loading..."}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-sm text-gray-600">Current Charge:</span>
+                <span className="text-2xl font-bold text-gray-800">
+                  ${trackingData?.currentCharge?.toFixed(2) ?? "Loading..."}
+                </span>
+              </div>
+            </div>
           </div>
 
           <button
