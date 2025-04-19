@@ -1,34 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentUrl, setCurrentUrl] = useState<string>('')
+
+  useEffect(() => {
+    // Get the current active tab URL
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs: chrome.tabs.Tab[]) => {
+      if (tabs[0]?.url) {
+        setCurrentUrl(tabs[0].url)
+      }
+    })
+  }, [])
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+    <div style={{ padding: '16px', minWidth: '300px' }}>
+      <h1 style={{ margin: 0, fontSize: '20px' }}>Scroll Toll</h1>
+      <div style={{ marginTop: '16px' }}>
+        <p style={{ margin: '8px 0', wordBreak: 'break-all' }}>
+          Current URL: {currentUrl || 'Loading...'}
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
