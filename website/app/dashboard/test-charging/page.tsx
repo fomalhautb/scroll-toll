@@ -22,7 +22,7 @@ export default function TestChargingPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          url: 'https://example.com/test'
+          url: 'https://facebook.com/test'
         })
       });
 
